@@ -183,8 +183,70 @@
 \end{itemize}
 
 \textbf{Esercizio 3}
+\begin{itemize}
+    \item[(a)] Per un teorema visto in classe, essendo $K^{(n)}\cup Y$ ottenuto da $K^{(n-1)}\cup Y$ attaccando $n$-celle,
+abbiamo che se $i\neq n$ allora
+\[
+    H_i(K^{(n)}\cup Y, K^{(n-1)}\cup Y) = 0.
+\]
+D'altronde, per $i=n$ possiamo usare il medesimo teorema ed il fatto che $H_n(D^n,\partial D^n)$ per
+dedurre che
+\[
+    H_n(K^{(n)}\cup Y, K^{(n-1)}\cup Y) = \sum_{\sigma} \im((f_\sigma)_*) \cong \Z^{|\{\sigma\}|}.
+\]
+Qui, gli indici $\sigma$ variano fra le mappe di incollamento utilizzate per costruire il CW complesso $K^{(n)}\cup Y$ a partire da $K^{(n-1)}\cup Y$. Per definizione di sottocomplesso, queste sono tante quante le $n$-celle di
+$K^{(n)}$ che non intersecano $Y$.
+\item[(b)] Partiamo con il caso $i<n$: per un teorema visto in classe, sappiamo che l'inclusione dell'$n$-scheletro di un CW complesso in esso induce un isomorfismo in
+omologia per $i<n$. Utilizzando questo fatto e la fattorizzazione associata alle inclusioni successive \[
+    K^{(n)}\hookrightarrow K^{(n)}\cup Y \overset{j}{\hookrightarrow} X
+,\]
+otteniamo il diagramma
+\[
+    \begin{tikzcd}
+        H_i(K^{(n)}\cup Y) \arrow[r,"j_*"]  & H_i(X) \\
+        H_i(K^{(n)}) \arrow[u, "\cong"] \arrow[ru, "\cong"]
+    \end{tikzcd}
+\]
+Questo implica che anche $j_*$ è un isomorfismo per $i<n$. Per concludere, usiamo il morfismo (indotto dalle inclusioni) fra le successioni esatte lunghe in omologia relativa di $X$ associate alle coppie
+$(X,K^{(n)}\cup Y)$ ed $(X,X)$:
+\[
+    \begin{tikzcd}[column sep=tiny]
+        \dots \arrow[r] & H_i(K^{(n)}\cup Y) \arrow[d, "\cong"] \arrow[r] & H_i(X) \arrow[d, "\cong"] \arrow[r] & H_i(X,K^{(n)}\cup Y) \arrow[d] \arrow[r] & H_{i-1}(K^{(n)}\cup
+        Y) \arrow[d, "\cong"] \arrow[r] & H_{i-1}(X) \arrow[d, "\cong"] \arrow[r] & \dots \\
+        \dots \arrow[r] & H_n(X) \arrow[r] & H_n(X) \arrow[r] & \cancel{H_i(X,X)} \arrow[r] & H_{n-1}(X) \arrow[r] & H_{n-1}(X) \arrow[r] & \dots
+    \end{tikzcd}
+\]
+Da cui, per il lemma dei cinque, la mappa verticale centrale è un isomorfismo e quindi $H_i(X,K^{(n)}\cup Y) = 0$ per $i<n$.
 
+Per $i=n$, invece, consideriamo la successione esatta lunga della tripla \[(X,K^{(n+1)}\cup Y,K^{(n)}\cup Y):\]
+    \begin{align*}
+        & \dots \to  H_n(K^{(n+1)}\cup Y,K^{(n)}\cup Y) \to H_n(X,K^{(n)}\cup Y) \to  \\
+         \to & H_n(X,K^{(n+1)}\cup Y)\to  H_{n-1}(K^{(n+1)}\cup Y,K^{(n)}\cup Y) \to  \dots
+    \end{align*}
+    I due estremi sono nulli per il punto $(a)$ dell'esercizio, mentre il terzo termine è nullo perchè per $i<n+1$ si ha $H_i(X,K^{(n+1)}\cup Y)=0$ per quanto detto sopra; questo
+    mostra la tesi per $i=n$.
 
+    Infine, se $i<n$ consideriamo la successione esatta lunga della tripla \[(X,K^{(n)}\cup Y,Y):\]
+    \[
+        \begin{tikzcd}[column sep=tiny]
+            \dots \arrow[r] & H_{i+1}(X,    K^{(n)}\cup Y) \arrow[r] & H_{i}(K^{(n)}\cup Y,Y) \arrow[r] & H_{i}(X,Y) \arrow[r] & H_{i}(X, K^{(n)}\cup Y) \arrow[r] & \dots
+        \end{tikzcd}
+    \]
+    Visto che $i\leq n+1$, i due estremi sono nulli per quanto appena dimostrato, e quindi la mappa centrale è un isomorfismo per esattezza.
+\item[(c)] Per definire il complesso $C_*(K,Y)$, consideriamo le successioni esatte lunghe associate alle coppie $(K^{(n)}\cup Y, K^{(n-1)}\cup Y)$ al variare di $n$: più
+    precisamente, posto $$C_n(K,Y)\coloneqq H_n(K^{(n)}\cup Y, K^{(n-1)}\cup Y),$$ definiamo i differenziali come la composizione
+    \[
+        \begin{tikzcd}[column sep=small]
+            H_n(K^{(n)}\cup Y, K^{(n-1)}\cup Y) \arrow[r] & H_{n-1}(K^{(n-1)}\cup Y) \arrow[r] & H_{n-1}(K^{(n-1)}\cup Y, K^{(n-2)}\cup Y)
+        \end{tikzcd}
+    \]
+    dove la prima mappa è quella di connessione relativa alla coppia $$(K^{(n)}\cup Y, K^{(n-1)}\cup Y),$$ mentre la seconda è quella indotta dalla proiezione relativa alla coppia
+    $$(K^{(n-1)}\cup Y, K^{(n-2)}\cup Y).$$
+
+    Per costruire l'isomorfismo cercato fra l'omologia di tale complesso e l'omologia di $X$ relativa ad $Y$, utilizzando le successioni delle triple $(K^{n+1}\cup Y, K^{(n)}\cup
+    Y, K^{(n-1)}\cup Y)$ e $(K^{(n)}\cup Y, K^{(n-1)}\cup Y, K^{(n-2)}\cup Y)$ si può usare l'esattezza ed escissione per mostrare che $$H_n(C_*(K,Y))\cong \ssfrac{H_n(K^{(n)},
+    K^{(n-1)}\cup Y)}{H_n(X, K^{(n-1)}\cup Y)\cong H_n(X,Y)},$$ utilizzando le successione delle rispettive coppie per ottenere l'ultimo isomorfismo.
+\end{itemize}
 \textbf{Esercizio 4}
 \begin{itemize}
     \item[(a)] Costruiamo una retrazione di $M_f$ sulla copia di Y contenuta in $M_f$ a tempo $1$: consideriamo infatti
