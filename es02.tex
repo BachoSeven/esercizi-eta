@@ -1,0 +1,230 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+% many useful symbols
+\usepackage{textcomp}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz-cd}
+\usepackage{cancel}
+
+% Remove indentation globally
+\setlength{\parindent}{0pt}
+% Have blank lines between paragraphs
+\usepackage[parfill]{parskip}
+
+\hypersetup{
+    colorlinks = true, % links instead of boxes
+    urlcolor   = cyan, % external hyperlinks
+    linkcolor  = blue, % internal links
+    citecolor  = cyan   % citations
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% use bullets for items
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\coker}{\operatorname{coker}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Display math
+\newcommand{\ssfrac}[2]{
+	\raisebox{+0.3ex}{$#1$}
+	/
+	\raisebox{-0.3ex}{$#2$}
+}
+% Inline math
+\newcommand{\sfrac}[2]{
+	\raisebox{+0.3ex}{\scalebox{0.9}{$#1$}}
+	/
+	\raisebox{-0.3ex}{\scalebox{0.9}{$#2$}}
+}
+
+ % No white line in equal arrows
+\usetikzlibrary{decorations.markings}
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+                    mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+                            \coordinate (ta-base-2) at (0,-1pt);},
+                    mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+                            \draw[#2] (ta-base-2) -- (0,-1pt);
+                        }}}}
+\tikzset{Equal/.style={-,double line with arrow={-,-}}}
+
+% Arrow
+\newcommand\Iso{\xrightarrow{
+                \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Esercizio}[section]
+\newtheorem*{exercise*}{Esercizio}
+
+\title{Elementi di Topologia Algebrica - Gruppo 2\vspace{-1cm}}
+\author{}
+
+\begin{document}
+\maketitle
+
+\textbf{Esercizio 1}
+\begin{itemize}
+    \item[(a)] Sia $X$ un grafo finito connesso, e procediamo per induzione sul numero di archi del grafo $X$: se il grafo ha un solo arco, allora possiede uno o due vertici, e il sottografo che selezionamo come albero è rispettivamente
+        \begin{tikzcd}
+            \bullet
+        \end{tikzcd}
+        oppure
+        \begin{tikzcd}
+            \bullet \arrow[r, no head] & \bullet
+        \end{tikzcd}.
+        Supponiamo ora che $X$ abbia $n$ archi, e senza perdita di generalità supponiamo che $X$ non sia un albero. Allora, esiste un vertice $x$ interno ad un qualche arco $a$ tale che $X\setminus\{x\}$ è connesso, e notiamo che $X\setminus\{a\}$ è un grafo connesso con $n-1$ archi, in quanto possiamo rimuovere il segmento $a\simeq [0,1]$ senza perdere la connessione. Possiamo quindi applicare l'ipotesi induttiva su tale grafo con $n-1$ archi, ed avendo questo gli stessi verticidi $X$ l'albero $T$ che otteniamo è il sottografo di $X$ cercato.
+
+    \item[(b)] Sia $T$ un albero, e procediamo ancora per induzione sul numero di archi: se $T$ ha un solo arco, allora è omeomorfo a $[0,1]$ ed è quindi contraibile.
+
+        Altrimenti, asseriamo che $T$ contiene un vertice di grado 1: infatti, osserviamo che un albero è equivalentemente un grafo connesso minimale, e quindi il numero di archi di $T$ è uguale al numero di vertici meno uno. Ora, se tutti i vertici di $T$ avessero grado maggiore o uguale a 2, allora il numero di archi sarebbe almeno il doppio del numero di vertici, che è un assurdo.
+
+        Sia quindi $x$ un vertice di grado 1 che si trova sull'arco $a$; allora, possiamo retrarre $a\cup \{x\}$ ad un punto, ottenendo un albero con un arco in meno. Applicando l'ipotesi induttiva, otteniamo che tale albero è contraibile, e quindi possiamo concatenare le due omotopie ottenute per ottenere una contrazione di $T$ ad un punto.
+
+    \item[(c)] Osserviamo che $X/T$ è connesso, e quindi
+        \[
+            H_0(X/T)\cong H_0(X)\cong\Z
+            .\]
+        Inoltre, notiamo che se $(X,A)$ è una coppia con $A$ contraibile, allora la successione esatta lunga in omologia relativa ci dà, per $i>0$, isomorfismi
+        \begin{equation}\label{eq:rel}
+            \dots \cancel{H_{i+1}(A)} \to H_i(X) \Iso H_i(X,A)\to \cancel{H_i(A)}\to \dots
+            .\end{equation}
+
+        Ora, affermiamo che $(X,T)$ è una buona coppia: infatti, per qualsiasi arco $a$, $(X,e)$ è una buona coppia, e per la costruzione del punto precedente possiamo vedere la proiezione $X\to X/T$ come una successione di quozienti successivi di un arco alla volta. Dalla teoria otteniamo quindi
+        \begin{equation}\label{eq:good}
+            H_i(X,T)\cong H_i(X/T)
+        \end{equation}
+        per ogni $i > 0$, e perciò visto che $T$ è contraibile otteniamo
+        \begin{align*}
+            H_i(X) & \overset{\eqref{eq:rel}}{\cong} H_i(X,T)      \\
+                   & \overset{\eqref{eq:good}}{\cong} H_i(X/T,T/T) \\
+                   & = H_i(X/T,*)                                  \\
+                   & \overset{\eqref{eq:rel}}{\cong} H_{i}(X/T).
+        \end{align*}
+
+        Il fatto che $X/T$ sia topologicamente omeomorfo ad un wedge di $S^1$ segue dal fatto che $T$ contiene tutti i vertici di $X$, che vengono quindi tutti identificati fra di loro. Di conseguenza, $X/T$ ha un singolo vertice, e tutti gli archi sono loop di tale vertice:    \begin{tikzcd}
+            \bullet \arrow[loop, distance=2em, in=120, out=60, no head] \arrow[loop, distance=2em, in=210, out=150, no head]  \arrow[loop, distance=2em, in=300, out=240, no head] \arrow[loop, distance=2em, in=30, out=330, no head]
+        \end{tikzcd}.
+
+    \item[(d)] Calcoliamo la caratteristica di Eulero di un albero $T$ come segue: essendo $T$ un grafo, sappiamo che
+        \[
+            \chi(T) = \operatorname{rk}{(H_0(T))} - \operatorname{rk}{(H_1(T))},
+        \]
+        e dal fatto che $T$ è contraibile e connesso deduciamo $\chi(T)= 1-0 = 1$.
+
+    \item[(e)] Innanzitutto $H_0(X/T)=\Z$ perchè $X/T$ è connesso; inoltre, visto che $X/T$ è topologicamente un wedge di $S^1$ abbiamo che
+
+        \[
+            H_1(X/T) = \pi_1(X/T)^{ab} = (\underbrace{\Z*\dots*\Z}_{r})^{ab}=\Z^r,
+        \]
+        dove $r$ è il numero di archi di $X/T$, che possiamo determinare come segue:
+        \begin{align*}
+            k & = |\{\text{archi di }X\}| - |\{\text{archi di }T\}|                       \\
+              & = (|\{\text{vertici di }X\}| - \chi(X)) - (|\{\text{vertici di }T\}| - 1) \\
+              & = 1-\chi(X),
+        \end{align*}
+        dove abbiamo usato il fatto che $X$ e $T$ hanno gli stessi vertici.
+
+        Inoltre, la struttura cellulare di $X/T$ è data incollando gli estremi di $k$ 1-celle ad una 0-cella, e quindi visto che l'omologia cellulare coincide con l'omologia singolare concludiamo che i gruppi di omologia di $X/T$ (e quindi anche di $X$) sono
+        \[
+            H_0(X/T) = \Z, \quad H_1(X/T) = \Z^{1-\chi(X)}, \quad H_i(X/T) = 0 \text{ per } i>1.
+        \]
+\end{itemize}
+
+\textbf{Esercizio 2}
+\begin{itemize}
+    \item[(a)] Vogliamo mostrare che la seguente composizione è un isomorfismo:
+
+        \[
+            \begin{tikzcd}
+                H_n(D_\sigma^n,\partial D_\sigma^n) \arrow[r, "(f_\sigma)_*"] & H_n(K^{(n)},B_\sigma) \arrow[r, "(p_\sigma)_*"] & \widetilde{H}_n(S_\sigma^n),
+            \end{tikzcd}
+        \]
+        dove per comodità abbiamo indicato con $B_\sigma$ lo spazio $K^{(n)}\setminus f_\sigma(\mathring{D_\sigma^n})$.
+
+        La prima mappa è iniettiva per un teorema visto in classe sugli spazi ottenuti per incollamento di $n$-celle; inoltre, nello stesso teorema abbiamo che
+        \[
+            H_n(K^{(n)},B_\sigma) \cong \im{((f_\sigma)_*)},
+        \]
+        visto che $K^{(n)}$ è ottenuto da $B_\sigma$ attaccando la $n$-cella $f_\sigma(\mathring{D}_\sigma^n)$; questo mostra che $(f_\sigma)_*$ è suriettiva, ma allora è un isomorfismo.
+
+        Inoltre, la seconda mappa è un isomorfismo perchè $(K^{(n)},B_\sigma)$ è una buona coppia (in quanto sottocomplesso di un CW complesso, come mostrato ad esempio nella Proposizione A.5 dell'Hatcher) e $(p_\sigma)_*$ è indotta dalla mappa di proiezione associata a tale coppia.
+
+    \item[(b)] Se $\tau\neq \sigma$, allora visto che le $n$-celle sono tutte disgiunte si ha
+        \[f_\tau(\mathring{D}_\sigma^n)\subset B_\sigma,\]
+        ma d'altronde il bordo di $D_\sigma^n$ ha sempre questa proprietà, e quindi la mappa $p_\sigma$ manda tutto $f_\tau(\mathring{D}_\sigma^n)$ in un punto; di conseguenza, la composizione \[(p_\sigma\circ f_\tau)_* = (p_\sigma)_*\circ (f_\tau)_*\] è la mappa nulla sui gruppi omologia, quanto indotta da una mappa costante.
+\end{itemize}
+
+\textbf{Esercizio 3}
+
+
+\textbf{Esercizio 4}
+\begin{itemize}
+    \item[(a)] Costruiamo una retrazione di $M_f$ sulla copia di Y contenuta in $M_f$ a tempo $1$: consideriamo infatti
+        \begin{align*}
+            H & : M_f \times [0,1]  \to M_f          \\
+              & \begin{cases}
+                    ((x,s),t) & \mapsto (x, s(1-t) + t), \\
+                    (y,t)     & \mapsto y.
+                \end{cases}
+        \end{align*}
+        Osserviamo che $H$ è ben definita e continua; d'altronde, $H_t$ ristretta ad Y è l'identità per ogni $t$, $H_0$ è l'identità di $M_f$ ed $H_1(M_f)=Y$. Quindi, $H$ è una retrazione per deformazione di $M_f$ su $Y$, e ponendo $p=H_1$ otteniamo l'equivalenza omotopica cercata:
+        \[
+            p\circ \iota (x) = H_1\circ \iota (x) = H_1(x,0) = (x,1) = f(x)
+        \]
+        per definizione di mapping cone.
+
+    \item[(b)] Consideriamo la successione esatta lunga in omologia relativa associata alla coppia $(M_f, X)$:
+        \begin{equation}\label{eq:couple}
+            \begin{tikzcd}
+                \dots \arrow[r] & \widetilde{H}_i(X) \arrow[r] & \widetilde{H}_i(M_f) \arrow[r] & H_i(M_f, X) \arrow[r] & \widetilde{H}_{i-1}(X) \arrow[r] & \dots,
+            \end{tikzcd}
+        \end{equation}
+        dove abbiamo usato il fatto che l'omologia della coppia coincide l'omologia ridotta.
+
+        Visto che $Y$ è un retratto per deformazione di $M_f$ e che $(M_f, X)$ è una buona coppia (ad esempio perché $X\times [0,\frac{1}{2})$ si retrae per deformazione su $X$),
+        osservando che
+        \[
+            \ssfrac{M_f}{X} \cong C_f
+        \]
+        deduciamo gli isomorfismi
+        \begin{align*}
+            \widetilde{H}_i(M_f) & \cong  \widetilde{H}_i(Y)   \\
+            H_i(M_f, X)          & \cong \widetilde{H}_i(C_f).
+        \end{align*}
+        Sostituendoli nella \eqref{eq:couple}, otteniamo quindi la successione esatta desiderata:
+        \[
+            \begin{tikzcd}
+                \dots \arrow[r] & \widetilde{H}_i(X) \arrow[r] & \widetilde{H}_i(Y) \arrow[r] & \widetilde{H}_i(C_f) \arrow[r] & \widetilde{H}_{i-1}(X) \arrow[r] & \dots
+            \end{tikzcd}
+        \]
+\end{itemize}
+
+\end{document}
