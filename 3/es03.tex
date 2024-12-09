@@ -1,0 +1,176 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+% many useful symbols
+\usepackage{textcomp}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz-cd}
+\usepackage{cancel}
+
+% Remove indentation globally
+\setlength{\parindent}{0pt}
+% Have blank lines between paragraphs
+\usepackage[parfill]{parskip}
+
+\hypersetup{
+    colorlinks = true, % links instead of boxes
+    urlcolor   = cyan, % external hyperlinks
+    linkcolor  = blue, % internal links
+    citecolor  = cyan   % citations
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% use bullets for items
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\coker}{\operatorname{coker}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Display math
+\newcommand{\ssfrac}[2]{
+	\raisebox{+0.3ex}{$#1$}
+	/
+	\raisebox{-0.3ex}{$#2$}
+}
+% Inline math
+\newcommand{\sfrac}[2]{
+	\raisebox{+0.3ex}{\scalebox{0.9}{$#1$}}
+	/
+	\raisebox{-0.3ex}{\scalebox{0.9}{$#2$}}
+}
+
+ % No white line in equal arrows
+\usetikzlibrary{decorations.markings}
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+                    mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+                            \coordinate (ta-base-2) at (0,-1pt);},
+                    mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+                            \draw[#2] (ta-base-2) -- (0,-1pt);
+                        }}}}
+\tikzset{Equal/.style={-,double line with arrow={-,-}}}
+
+% Arrow
+\newcommand\Iso{\xrightarrow{
+                \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Esercizio}[section]
+\newtheorem*{exercise*}{Esercizio}
+
+\title{Elementi di Topologia Algebrica - Gruppo 3\vspace{-1cm}}
+\author{}
+
+\begin{document}
+\maketitle
+
+\textbf{Esercizio 1}
+
+Fissato $n$, vogliamo mostrare che il seguente diagramma commuta:
+\[
+    \begin{tikzcd}
+        C_n(X) \arrow[r, "\delta_n"] \arrow[d, "D"] & C_{n-1}(X) \arrow[d, "D"] \\
+        C_n(X)\otimes C_n(X) \arrow[r, "\delta_n^\prime"] & C_{n-1}(X)\otimes C_{n-1}(X)
+    \end{tikzcd}
+\]
+Calcoliamo entrambe le composizioni: per $\sigma\in C_n(X)$, abbiamo
+\begin{align*}
+    D\circ\delta_n(\sigma) &= D\left(\sum_{i=0}^n (-1)^i\sigma\circ d_i\right)\\
+                           &= \sum_{i=0}^n (-1)^i\left(\sum_{p+q=n-1} (\sigma\circ d_i)_p^1\otimes(\sigma\circ d_i)_q^2\right)\\
+                           &= \sum_{i=0}^{p} (-1)^i\left(\sum_{p+q=n-1} (\sigma\circ d_i)_p^1\otimes(\sigma\circ d_i)_q^2\right) +  \sum_{i=p+1}^n (-1)^i\left(\sum_{p+q=n-1} (\sigma\circ d_i)_p^1\otimes(\sigma\circ d_i)_q^2\right).
+\end{align*}
+Osserviamo inoltre che valgono le seguenti relazioni, che si ottengono esplicitando le mappe $a_p$, $b_q$ in termini delle mappe $d_i$:
+\[
+\begin{cases}
+    (\sigma\circ d_i)_p^1 = \sigma_{p+1}^1\circ d_i & \text{se } i\leq p,\\
+    (\sigma\circ d_i)_p^1 = \sigma_p^1 & \text{se } i>p,\\
+    (\sigma\circ d_i)_q^2 =  \sigma_q^2 & \text{se } i\leq p,\\
+    (\sigma\circ d_i)_q^2 = \sigma_{q+1}^2\circ d_{i-p} & \text{se } i > p.
+\end{cases}
+\]
+Effettuando tali sostituzioni e riscrivendo $q$ in termini di $n$ e $p$, otteniamo:
+\begin{align*}
+    &D   \circ \delta_n(\sigma) = \\
+                               &\quad= \sum_{p=0}^{n-1} \left(\sum_{i=0}^{p} (-1)^i (\sigma_{p+1}^1\circ d_i)\otimes\sigma_{n-p-1}^2 +  \sum_{i=p+1}^n (-1)^i \sigma_p^1 \otimes (\sigma_{n-p}^2\circ {d_{i-p}} )\right).
+\end{align*}
+
+Esplicitiamo ora l'altra composizione:
+\begin{align*}
+    \delta_n^\prime\circ D(\sigma) &= \delta_n^\prime\left(\sum_{p+q=n} \sigma_p^1\otimes\sigma_q^2\right)\\
+                                   &= \sum_{p+q=n} \left( \left(\sum_{i=0}^p (-1)^i(\sigma_p^1\circ d_i)\right)\otimes(\sigma_q^2) + (-1)^p (\sigma_p^1)\otimes \left(\sum_{j=0}^q
+                                       (-1)^j(\sigma_q^2\circ d_j)\right) \right)\\
+                                   &= \sum_{p=0}^n \left( \left(\sum_{i=0}^p (-1)^i(\sigma_p^1\circ d_i)\right)\otimes(\sigma_{n-p}^2) +  \left(\sum_{j=0}^{n-p}
+                                           (-1)^{j+p}\sigma_p^1\otimes(\sigma_{n-p}^2\circ d_j)\right) \right).
+\end{align*}
+Osserviamo ora che nell'espressione qua sopra, i termini con $i=p$ e $j=0$ si cancellano, in quanto otteniamo una somma telescopica
+\[
+    \sum_{p=0}^n\left((-1)^p(\sigma_1^p\circ d_p)\otimes\sigma^2_{n-p} +(-1)^p\sigma_1^p \otimes (\sigma^2_{n-p}\circ d_0) \right)=
+    \sum_{p=0}^n\left((-1)^p \sigma^{p-1}_1 \otimes \sigma^2_{n-p} + (-1)^p \sigma_1^p \otimes \sigma^2_{n-p-1}\right)=0
+.\]
+In conclusione, per entrambe le composizioni otteniamo lo stesso numero $n(n+1)$ di termini, e permutando gli indici delle sommatorie otteniamo che i due risultati coincidono.
+
+\textbf{Esercizio 2}
+
+\textbf{Esercizio 3}
+Dimostriamo innanzitutto che i gruppi $H^i(T^n)$ sono isomorfi a $\Z^{\binom{n}{i}}$ per induzione su $n$: per $n=1$ abbiamo $T^1=S^1$, e sappiamo che $H^0(S^1)=H^1(S^1)=\Z$ ed
+$H^i(S^1)=0$ per $i>1$; per il passo induttivo, notiamo che $T^n=T^{n-1}\times S^1$ è prodotto di spazi topologici con coomologia libera, e quindi per la formula di Künneth
+otteniamo
+\[
+    H^i(T^n) \simeq H^i(T^{n-1})\otimes H^0(S^1) \oplus H^{i-1}(T^{n-1})\otimes H^1(S^1) \simeq \Z^{\binom{n-1}{i}}\oplus\Z^{\binom{n-1}{i-1}} = \Z^{\binom{n}{i}}
+.\]
+Per quanto riguarda la struttura moltiplicativa, mostriamo per induzione su $n$ che $H^*(T^n)$ è isomorfo alla $\Z$-algebra esterna $\Lambda(x_1,\ldots,x_n)$ su $n$ generatori dove
+gli $x_i$ sono generatori dell'$H^1$ dell'$i$-esima copia di $S^1$, il cui prodotto è $T^n$: per
+$n=1$, abbiamo $$H^*(S^1)=\Z \oplus x\Z$$ con $x$ generatore di $H^1(S^1)$, e vale $x^2=0$ visto che $x^2=x\smile x \in H^2(S^1)=0$; per il passo induttivo, possiamo usare la
+relazione dell'esercizio precedente, per la quale l'isomorfismo $\alpha$ di Künneth risulta essere un isomorfismo di algebre graduate, e quindi
+\[
+    H^*(T^n)\simeq H^*(T^{n-1})\otimes H^*(S^1)
+\]
+come algebre graduate.
+Per ipotesi induttiva, $H^*(T^{n-1})$ è isomorfo a $\Lambda(x_1,\ldots,x_{n-1})$, ed $H^*(S^1)$ è isomorfo a $\Lambda(x_n)$ con $x_n$ generatore di $H^1(S^1)$; perciò
+\[
+    H^*(T^n)\simeq \Lambda(x_1,\ldots,x_{n-1})\otimes\Lambda(x_n)\simeq \Lambda(x_1,\ldots,x_{n-1},x_n)
+,\]
+che conclude il passo induttivo.
+
+\textbf{Esercizio 4}
+
+Notiamo preliminarmente che essendo $X$ una varietà connessa, è anche connessa per archi. Inoltre, essendo $X$ \textit{non} compatta, abbiamo che $X\setminus K$ è non vuoto per ogni $K\subset X$ compatto.
+
+Per definizione di coomologia a supporto compatto, preso un $0$-cociclo
+\[
+    \alpha\in H^0_c(X)=\ker{(\delta^0:\,C^0_c(X)\to C^1_c(X))}
+,\]
+questo vive in $C^0(X,X\setminus K )=\ker(C^0(X)\to C^0(X\setminus K))$ per un qualche compatto $K\subset X$. Se fissiamo $y\in X\setminus K$, per ogni $x\in X$ esiste un cammino $\gamma$ che congiunge
+$x$ ad $y$.
+
+Quindi,
+\[
+    \delta^0(\alpha)=0 \implies 0=\delta^0(\alpha)(\gamma)=\alpha(y)-\alpha(x)=0,
+\] ma visto che $y\in X\setminus K$, abbiamo $\alpha(y)=0$ e quindi $\alpha(x)=0$ per ogni $x\in X$ per l'arbitrarietà di $x$; concludiamo perciò $\alpha=0$ e dunque $H^0_c(X)=0$.
+\end{document}
