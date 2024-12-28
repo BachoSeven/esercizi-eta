@@ -136,6 +136,38 @@ Osserviamo ora che nell'espressione qua sopra, i termini con $i=p$ e $j=0$ si ca
 In conclusione, per entrambe le composizioni otteniamo lo stesso numero $n(n+1)$ di termini, e permutando gli indici delle sommatorie otteniamo che i due risultati coincidono.
 
 \textbf{Esercizio 2}
+Siano $\pi_X:X\times Y\to X$ e $\pi_Y:X\times Y\to Y$ le proiezioni canoniche, che inducono mappe $\pi_X^*:C^*(X)\to C^*(X\times Y)$ e $\pi_Y^*:C^*(Y)\to C^*(X\times Y)$ sulle
+cocatene. Mostreremo che l'isomorfismo $\alpha$ ammette la scrittura esplicita
+\begin{equation}\label{eq:alpha}
+    \alpha(a\otimes b) = \pi_X^*(a)\smile\pi_Y^*(b).
+\end{equation}
+Per farlo, consideriamo la mappa
+\[
+        \beta: C^*(X)\otimes C^*(Y) \to  C^*(X\times Y)
+\]
+che manda $p\otimes q\in C^i(X)\otimes C^j(Y)$ in $\pi_X^*(p)\smile\pi_Y^*(q)\in C^{i+j}(X\times Y)$; questa definisce un morfismo di complessi per la naturalità delle proiezioni e
+del prodotto cup, che sono compatibili con le mappe di bordo. Inoltre, $\beta$ coincide con la mappa $EZ$ di Eilenberg-Zilber in grado $0$, in quanto quest'ultima è data da $$p\otimes
+q\mapsto (\sigma\to p(\pi_X(\sigma))q(\pi_Y(\sigma)))$$ al variare di $\sigma$ in $C_0(X\times Y)$, e $\beta$ dà lo stesso risultato in grado $0$ per definizione di prodotto cup. Dunque, per
+il teorema dei funtori liberi ed aciclici $EZ$ è omotopa a $\beta$, e quindi inducono la stessa mappa in coomologia. In altre parole, passando per la formula di Künneth otteniamo
+che $\beta$ induce un isomorfismo
+\[
+    \bigoplus_{p+q=n} H^p(X)\otimes H^q(Y) \Iso H^n(X\times Y)
+\]
+che coincide con $\alpha$ per costruzione.
+Per concludere, osserviamo che vale la seguente catena di uguaglianze (dove usiamo la scrittura \eqref{eq:alpha} per $\alpha$):
+\begin{align*}
+    \alpha(a_i\otimes a_j)\smile\alpha(b_p \otimes b_q) &= (\pi_X^*(a_i)\smile\pi_Y^*(a_j))\smile(\pi_X^*(b_p)\smile\pi_Y^*(b_q))\\
+                                                        &= \pi_X^*(a_i)\smile(\pi_Y^*(a_j)\smile\pi_X^*(b_p))\smile\pi_Y^*(b_q) && \text{(associatività di $\smile$)}\\
+                                                        &= (-1)^{(jp)}\pi_X^*(a_i)\smile  \pi_X^*(b_p)\smile\pi_Y^*(a_j)\smile\pi_Y^*(b_q) && \text{(anti-commutatività di $\smile$)}\\
+                                                        &= (-1)^{jp}\pi_X^*(a_i\smile b_p)\smile\pi_Y^*(a_j\smile b_q) && (\ast)\\
+                                                        &= \alpha((a_i\smile b_p)\otimes (a_j\smile b_q)),
+\end{align*}
+come volevamo dimostrare. Il passaggio $(\ast)$ è una verifica immediata, che riportiamo nel caso di $\pi_X^*$: se $a,b$ sono cocicli in gradi $i,j$ rispettivamente, allora per
+ogni $\sigma\in C_{i+j}(X\times Y)$ abbiamo
+\[
+    \pi_X^*(a\smile b)(\sigma) = (-1)^{ij} a(\pi_X\circ \sigma)b(\pi_Y\circ \sigma) = \pi_X^*(a)\smile\pi_X^*(b)
+.\]
+
 
 \textbf{Esercizio 3}
 Dimostriamo innanzitutto che i gruppi $H^i(T^n)$ sono isomorfi a $\Z^{\binom{n}{i}}$ per induzione su $n$: per $n=1$ abbiamo $T^1=S^1$, e sappiamo che $H^0(S^1)=H^1(S^1)=\Z$ ed

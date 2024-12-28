@@ -1,0 +1,140 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+% many useful symbols
+\usepackage{textcomp}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz-cd}
+\usepackage{cancel}
+
+% Remove indentation globally
+\setlength{\parindent}{0pt}
+% Have blank lines between paragraphs
+\usepackage[parfill]{parskip}
+
+\hypersetup{
+    colorlinks = true, % links instead of boxes
+    urlcolor   = cyan, % external hyperlinks
+    linkcolor  = blue, % internal links
+    citecolor  = cyan   % citations
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% use bullets for items
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\coker}{\operatorname{coker}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Display math
+\newcommand{\ssfrac}[2]{
+	\raisebox{+0.3ex}{$#1$}
+	/
+	\raisebox{-0.3ex}{$#2$}
+}
+% Inline math
+\newcommand{\sfrac}[2]{
+	\raisebox{+0.3ex}{\scalebox{0.9}{$#1$}}
+	/
+	\raisebox{-0.3ex}{\scalebox{0.9}{$#2$}}
+}
+
+ % No white line in equal arrows
+\usetikzlibrary{decorations.markings}
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+                    mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+                            \coordinate (ta-base-2) at (0,-1pt);},
+                    mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+                            \draw[#2] (ta-base-2) -- (0,-1pt);
+                        }}}}
+\tikzset{Equal/.style={-,double line with arrow={-,-}}}
+
+% Arrow
+\newcommand\Iso{\xrightarrow{
+                \,\smash{\raisebox{-0.65ex}{\ensuremath{\scriptstyle\sim}}}\,}}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Esercizio}[section]
+\newtheorem*{exercise*}{Esercizio}
+
+\title{Elementi di Topologia Algebrica - Gruppo 4\vspace{-1cm}}
+\author{}
+\begin{document}
+
+\maketitle
+
+\textbf{Esercizio 1}
+
+\textbf{Esercizio 2}
+
+\textbf{Esercizio 3}
+Vogliamo dimostrare l'esattezza della succcesione
+\[
+    [C_f, Z]^0 \overset{i_1^*}{\to} [Y, Z]^0 \overset{f^*}{\to} [X, Z]^0
+\]
+nel termine centrale. D'altronde, dato un rappresentante $\varphi$ di una classe in $[Y, Z]^0$, abbiamo che $f^*([\varphi]) = [\varphi\circ f]$ è banale se e solo se $\varphi \circ f$ è omotopicamente banale, ma per l'esercizio 2 questo succede
+esattamente quando $\varphi$ fattorizza attraverso $C_f$, ovvero quando proviene tramite $i_1^*$ da un elemento di $[C_f, Z]^0$. Abbiamo quindi dimostrato che $\ker f^* = \im i_1^*$.
+
+Per mostrare che le due successioni sono equivalenti nella categoria $\mathbf{hTop}$ degli spazi topologici con morfismi dati dalle classi di omotopia di mappa continue, mostriamo innanzitutto che, nella seguente situazione, esiste una equivalenza omotopica fra $C_{i_1}$ e $SX$:
+\begin{align}\label{eq:1}
+    X\overset{f}{\to} Y\overset{i_1}{\to} C_f \to C_{i_1}
+\end{align}
+Fatto ciò, l'equivalenza omotopica fra i termini successivi delle due successioni segue osservando che ogni tripla di mappa successiva nella prima successione è della forma \eqref{eq:1}.
+
+È sufficiente mostrare che l'inclusione di $CY$ in $C_{i_1}$ è una cofibrazione: infatti, essendo il cono $CY$ contraibile ne segue che la proiezione al quoziente $C_{i_1} \to C_{i_1}/CY$ è una equivalenza omotopica, e quest'ultimo termine è evidentemente omeomrfo alla sospensione $SX$.
+
+D'altronde, abbiamo visto a lezione che le cofibrazioni sono stabili per pushout. Consideriamo quindi il seguente diagramma:
+\[
+    \begin{tikzcd}
+        X \arrow[r,"i"] \arrow[d,"f"] & CX \arrow[d] \\
+        Y \arrow[r,"i_1"] \arrow[d] & C_f \arrow[d] \\
+        CY \arrow[r] & C_{i_1}
+    \end{tikzcd}
+\]
+Visto l'inclusione $i$ di $X$ nel suo cono è una cofibrazione e $C_f$ è il pushout del quadrato superiore, dunque $i_1$ è una cofibrazione, ma allora visto che $C_{i_1}$ è il pushout del quadrato inferiore otteniamo $C_f \to C_{i_1}$ è una cofibrazione, come voluto.
+
+Ci resta da stabilire che il diagramma dato dalle due successioni collegate verticalmente dalle equivalenze costruite è commutativo in $\mathbf{hTop}$. Per dirlo, senza perdita di generalità basta considerare il diagramma
+\[
+    \begin{tikzcd}
+        C_{i_1} \arrow[r,"i_3"] \arrow[d] & C_{i_2} \arrow[d] \\
+        SX \arrow[r,"Sf"] & SY
+    \end{tikzcd}
+\]
+ed esibire un'omotopia fra i due percorsi:
+\begin{align*}
+    H & : C_{i_1} \times I \to SY                            \\
+    H & ([x,t], s)  = \begin{cases}
+                          [f (x), st]  & \text{se } [x,t]\in C_f \\
+                          [x,s+(1-s)t] & \text{se } [x,t]\in CY
+                      \end{cases}
+\end{align*}
+
+
+\end{document}
